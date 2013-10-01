@@ -1,0 +1,74 @@
+#include <Servo.h> 
+
+Servo myservo;
+
+const int ledeyes = 13;
+const int ledblush = 12;
+int forceSensor = 0;
+int sensor1;
+int brightness;
+unsigned long currentTime;
+unsigned long loopTime;
+int motor = 5;
+int sensorPin = 1; //light sensor
+int val;
+
+
+void setup() {
+  Serial.begin(9600);
+  myservo.attach(motor, 500, 2500);
+ pinMode(ledeyes, OUTPUT); 
+ pinMode(ledblush, OUTPUT);
+ currentTime = millis();
+ loopTime = currentTime;
+
+ }
+
+void loop(){
+  val=analogRead(1);
+  val=map(val,0,1023,0,240);
+  myservo.write(val);
+  delay(15);
+  sensor1 = analogRead(forceSensor);
+  Serial.println(sensor1);
+  currentTime=millis();
+
+if ((currentTime >= (loopTime + 1000)) && (sensor1>=1))
+{
+  digitalWrite(ledblush, !digitalRead(ledblush));
+  loopTime = currentTime; 
+}
+
+if (sensor1 >= 100)
+{
+  digitalWrite(ledeyes, HIGH); 
+  delay(50);
+  digitalWrite(ledeyes, LOW);
+  delay(50);
+  digitalWrite(ledeyes, HIGH);
+  delay(50);
+  digitalWrite(ledeyes, LOW);
+  delay(50);
+  digitalWrite(ledeyes, HIGH);
+  delay(50);
+  digitalWrite(ledeyes, LOW);
+  delay(50);
+  digitalWrite(ledblush, HIGH);
+  delay(1000);
+}
+  if (sensorPin >=1){
+  brightness = 0;
+}
+
+
+else  {
+  brightness = 0;
+}
+  
+
+
+
+
+analogWrite(ledblush, brightness);
+analogWrite(ledeyes, brightness);
+}
