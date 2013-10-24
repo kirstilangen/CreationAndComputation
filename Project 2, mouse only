@@ -1,0 +1,25 @@
+void setup() {
+  size(700, 700);
+  background(350, 40, 725);
+  smooth();
+}
+
+void draw(){
+  stroke(500, 500, 500, 50);
+  strokeWeight (abs(mouseX-pmouseX));
+  ellipse(pmouseX, pmouseY, 7, 7);
+  line(pmouseX, pmouseY, mouseX, mouseY);
+}
+
+void mousePressed() {
+  stroke(100,100,100,100);
+  strokeWeight(3);
+  noFill();
+  rectMode(CENTER);
+  triangle(mouseX, mouseY, (abs(6-pmouseX)/2), mouseX, mouseY, (abs(6-pmouseY)/2));
+  //rect(mouseX, mouseY, (abs(500-pmouseX)/3), (abs(100-pmouseY)/5));
+}
+
+void keyPressed(){
+  background(350, 40, 725);
+}
